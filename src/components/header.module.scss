@@ -1,0 +1,27 @@
+.header {
+    margin: 0 auto;
+    max-width: 550px;
+    padding: 1rem 0 3rem;
+}
+.title {
+    color: black;
+    font-size: 3rem;
+    text-decoration: none;
+}
+.navlist {
+    display: flex; // stacks the items left to right
+    list-style-type: none; // removes the bullet points
+    margin: 0; // removes default margin that lists have
+}
+.navitem {
+    color: #999999;
+    font-size: .9rem;
+    margin-right: 1.3rem;
+    text-decoration: none;
+}
+.navitem:hover {
+    color: #49495c;
+}
+.activenavitem {
+    color: #131118;
+}
