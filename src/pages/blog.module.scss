@@ -1,0 +1,33 @@
+.posts {
+    list-style-type: none;
+    margin: 0;
+}
+
+// single class selector
+// apply space to each post item, vertically/horizontally
+.post {
+    margin: 1rem 0; // 1rem on top & bottom, 0rem on left & right
+
+    // use scss to style by targeting element name
+    a {
+        background: #f4f4f4;
+        color: #393547;
+        display: block;
+        padding: 1rem;
+        text-decoration: none;
+    }
+
+    a:hover {
+        background: #e4e4e4;
+    }
+
+    h2 {
+        margin-bottom: 0;
+    }
+
+    p {
+        color: #6d6079;
+        font-size: 0.8rem;
+        font-style: italic;
+    }
+}

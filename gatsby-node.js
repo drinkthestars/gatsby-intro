@@ -40,16 +40,33 @@ module.exports.createPages = async ({graphql, actions}) => {
                     }
                 }
             }
+            allContentfulBlogPost {
+                edges {
+                    node {
+                        slug
+                    }
+                }
+            }
         }    
     `)
 
     // 3. create new pages
-    slugResponse.data.allMarkdownRemark.edges.forEach(element => {
+    slugResponse.data.allMarkdownRemark.edges.forEach(edge => {
         createPage({
             component: blogTemplate, // not actual component, just it's path
-            path: `/blog/${element.node.fields.slug}`,
+            path: `/blog/${edge.node.fields.slug}`,
             context: {
-                slug: element.node.fields.slug
+                slug: edge.node.fields.slug
+            }
+        })
+    })
+
+    slugResponse.data.allContentfulBlogPost.edges.forEach(edge => {
+        createPage({
+            component: blogTemplate, // not actual component, just it's path
+            path: `/blog/${edge.node.slug}`,
+            context: {
+                slug: edge.node.slug
             }
         })
     })

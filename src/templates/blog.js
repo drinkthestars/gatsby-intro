@@ -4,6 +4,8 @@
 import React from 'react'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+
 
 /**
  *Create separate graphql query to pass in slug param
@@ -28,17 +30,40 @@ export const query = graphql`
             }
             html
         }
+        contentfulBlogPost(slug: { eq: $slug }) {
+            contentful_id
+            title
+            slug
+            publishedDate(
+                formatString: "MMMM Do, YYYY"
+            )
+            body {
+                raw
+            }
+        }        
     }
 `
 
-const Blog = (props) => {
-    const slug = props.slug
-    
+const Blog = (props) => {    
     return (
         <Layout>
-            This is the blog template
+            {props.data.markdownRemark !== null &&
+                <div>
+                    <h1>{props.data.markdownRemark.frontmatter.title}</h1>
+                    <p>{props.data.markdownRemark.frontmatter.date}</p>
+                    <div dangerouslySetInnerHTML={{__html: props.data.markdownRemark.html}}></div>
+                </div>
+            }
+            {props.data.contentfulBlogPost !== null &&
+                <div>
+                    <h1>{props.data.contentfulBlogPost.title}</h1>
+                    <p>{props.data.contentfulBlogPost.publishedDate}</p>
+                    {
+                        documentToReactComponents(JSON.parse(props.data.contentfulBlogPost.body.raw))
+                    }
+                </div>
+            }
         </Layout>
-
     )
 }
 
