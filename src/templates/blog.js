@@ -7,6 +7,7 @@ import { graphql } from 'gatsby'
 import { useContentfulImage } from '../hooks/useContentfulImage'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS } from '@contentful/rich-text-types';
+import Head from '../components/head'
 
 /**
  *Create separate graphql query to pass in slug param
@@ -64,6 +65,7 @@ const Blog = (props) => {
         <Layout>
             {props.data.markdownRemark !== null &&
                 <div>
+                    <Head title={props.data.markdownRemark.frontmatter.title}/>
                     <h1>{props.data.markdownRemark.frontmatter.title}</h1>
                     <p>{props.data.markdownRemark.frontmatter.date}</p>
                     <div dangerouslySetInnerHTML={{__html: props.data.markdownRemark.html}}></div>
@@ -71,6 +73,7 @@ const Blog = (props) => {
             }
             {props.data.contentfulBlogPost !== null &&
                 <div>
+                    <Head title={props.data.contentfulBlogPost.title}/>
                     <h1>{props.data.contentfulBlogPost.title}</h1>
                     <p>{props.data.contentfulBlogPost.publishedDate}</p>
                     {

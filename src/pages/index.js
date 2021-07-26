@@ -5,10 +5,12 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import oldlib from './oldlib.jpg';
+import Head from '../components/head'
 
 const IndexPage = () => {
     return (
         <Layout>
+            <Head title="Home"/>
             <h1>Hi there</h1>
                 <img src={oldlib} alt="library"/>
                 <p align="center">Photo by <a href="https://unsplash.com/@ula_kuzma?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ula Kuźma</a> on <a href="https://unsplash.com/s/photos/old-library?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>                </p>
