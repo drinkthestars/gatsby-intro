@@ -4,8 +4,9 @@
 import React from 'react'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
+import { useContentfulImage } from '../hooks/useContentfulImage'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-
+import { BLOCKS } from '@contentful/rich-text-types';
 
 /**
  *Create separate graphql query to pass in slug param
@@ -40,11 +41,25 @@ export const query = graphql`
             body {
                 raw
             }
-        }        
+        }
     }
 `
 
-const Blog = (props) => {    
+const docToReactOptions = {
+    renderNode: {
+        [BLOCKS.EMBEDDED_ASSET]: node => {
+            const asset = useContentfulImage(node.data.target.sys.id)
+            if (asset) {
+                return (
+                    <img src={asset.node.fluid.src} alt={asset.node.title} />
+                )
+            }
+        }
+    },
+}
+
+const Blog = (props) => {
+
     return (
         <Layout>
             {props.data.markdownRemark !== null &&
@@ -59,7 +74,10 @@ const Blog = (props) => {
                     <h1>{props.data.contentfulBlogPost.title}</h1>
                     <p>{props.data.contentfulBlogPost.publishedDate}</p>
                     {
-                        documentToReactComponents(JSON.parse(props.data.contentfulBlogPost.body.raw))
+                        documentToReactComponents(
+                            JSON.parse(props.data.contentfulBlogPost.body.raw), 
+                            docToReactOptions
+                        )
                     }
                 </div>
             }
