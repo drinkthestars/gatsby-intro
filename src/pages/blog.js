@@ -56,7 +56,7 @@ const BlogPage = () => {
         {data.allContentfulBlogPost.edges.map(edge => {
           return (
             <li className={post} key={edge.node.contentful_id}>
-              <Link to={`/blog/${edge.node.slug.name}`}>
+              <Link to={`/blog/${edge.node.slug}`}>
                 <h2>{edge.node.title}</h2>
                 <p>{edge.node.publishedDate}</p>
               </Link>
